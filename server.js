@@ -125,7 +125,15 @@ fu.listen(Number(process.env.PORT || PORT), HOST);
 fu.get("/", fu.staticHandler("index.html"));
 fu.get("/style.css", fu.staticHandler("style.css"));
 fu.get("/client.js", fu.staticHandler("client.js"));
+fu.get("/replaces.json", fu.staticHandler("replaces.json"));
 fu.get("/jquery-1.2.6.min.js", fu.staticHandler("jquery-1.2.6.min.js"));
+
+// emot request additions (should be automated for a greater number..
+// or be stored on a different webserver
+fu.get("/emot/osaka.gif", fu.staticHandler("./emot/osaka.gif"));
+fu.get("/emot/bunny_sad.gif", fu.staticHandler("./emot/bunny_sad.gif"));
+fu.get("/emot/bunny_elol.gif", fu.staticHandler("./emot/bunny_elol.gif"));
+fu.get("/emot/bunny_love.gif", fu.staticHandler("./emot/bunny_love.gif"));
 
 
 fu.get("/who", function (req, res) {

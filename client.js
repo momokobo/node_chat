@@ -8,6 +8,12 @@ var CONFIG = { debug: false
 
 var nicks = [];
 
+var replaces;
+$.getJSON('replaces.json', function(data) {
+	replaces = data;
+	}
+);
+
 //  CUT  ///////////////////////////////////////////////////////////////////
 /* This license and copyright apply to all code until the next "CUT"
 http://github.com/jherdman/javascript-relative-time-helpers/
@@ -105,8 +111,6 @@ Date.fromString = function(str) {
 
 //  CUT  ///////////////////////////////////////////////////////////////////
 
-
-
 //updates the users link to reflect the number of active users
 function updateUsersLink ( ) {
   var t = nicks.length.toString() + " user";
@@ -154,6 +158,13 @@ util = {
                     .replace(/</g, "&lt;")
                     .replace(/>/g, "&gt;");
   }, 
+
+  applyReplaces: function(inputText) {
+	inputText = inputText.toString();
+	
+	$.each(replaces, function(k, v) { inputText = inputText.replace(k, v); });
+	return inputText;
+  },
 
   //pads n with zeros on the left,
   //digits is minimum length of output
@@ -223,6 +234,9 @@ function addMessage (from, text, time, _class) {
 
   // replace URLs with links
   text = text.replace(util.urlRE, '<a target="_blank" href="$&">$&</a>');
+
+  // replace (smileys etc)
+  text = util.applyReplaces(text);
 
   var content = '<tr>'
               + '  <td class="date">' + util.timeString(time) + '</td>'
