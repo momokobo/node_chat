@@ -156,7 +156,8 @@ util = {
     inputHtml = inputHtml.toString();
     return inputHtml.replace(/&/g, "&amp;")
                     .replace(/</g, "&lt;")
-                    .replace(/>/g, "&gt;");
+                    .replace(/>/g, "&gt;")
+		    .replace(/\"/g, "&quot;");
   }, 
 
   applyReplaces: function(inputText) {
